@@ -36,7 +36,11 @@
   .badge-navy{background:var(--blue-dark);color:#fff}
   .profil{display:inline-block;background:#eef0fb;color:var(--blue);font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
   .head-tag{font-size:.78rem;color:var(--muted);min-height:72px}
-  .head-price{font-size:1.25rem;font-weight:600;color:var(--blue);margin-top:auto;padding-top:12px}
+  .head-price{margin-top:auto;padding-top:12px;line-height:1.3}
+  .head-price .old{display:block;font-size:.8rem;color:var(--muted);text-decoration:line-through;font-weight:500}
+  .head-price .now{display:block;font-size:1.35rem;font-weight:700;color:#e5141d}
+  .head-price .save{display:inline-block;margin-top:5px;font-size:.7rem;font-weight:600;color:#fff;background:#e5141d;padding:2px 9px;border-radius:12px}
+  .promodate{display:block;font-size:.66rem;color:var(--muted);margin-top:6px}
 
   table{width:100%;border-collapse:collapse;table-layout:fixed}
   col.label-col{width:210px}
@@ -79,6 +83,7 @@
     <div class="langbar">
       <button class="langbtn" id="btn-fr" onclick="setLang('fr')">Français</button>
       <button class="langbtn" id="btn-en" onclick="setLang('en')">English</button>
+      <button class="langbtn" id="btn-de" onclick="setLang('de')">Deutsch</button>
     </div>
     <h1 id="title"></h1>
     <div class="tablescroll">
@@ -105,14 +110,16 @@ const M12_EN="Stairs up\nStairs down\nUphill\nDownhill\nPower walk\nWalk\nCyclin
 const M10_EN="Stairs up\nStairs down\nUphill\nDownhill\nPower walk\nWalk\nCycling\nRunning\nMountain\nGravel";
 
 // Ordre d'affichage : Pro S, Max S, Ultra S
+const M12_DE="Treppe hoch\nTreppe runter\nBergauf\nBergab\nPower-Walking\nGehen\nRadfahren+\nLaufen+\nBerg\nSchotter\nDüne\nSchnee";
+const M10_DE="Treppe hoch\nTreppe runter\nBergauf\nBergab\nPower-Walking\nGehen\nRadfahren\nLaufen\nBerg\nSchotter";
 const DATA={
   fr:{
     title:"Comparer les exosquelettes de marche Hypershell",
-    yes:"Oui", no:"Non",
+    yes:"Oui", no:"Non", promo:"Promotion du 19/11 au 15/12/2026",
     models:[
-      {name:"X Pro S", badge:"Le plus accessible", badgeClass:"badge-gold", profil:"Balade & quotidien", tag:"L'essentiel pour bien démarrer : il soulage vos balades, vos petites sorties et vos déplacements du quotidien.", price:"999 €"},
-      {name:"X Max S", badge:"Le plus polyvalent", badgeClass:"badge-blue", profil:"Rando dénivelé modéré", tag:"Le plus polyvalent : la puissance et le couple de l'Ultra S, pour randonner sur tous les terrains, même avec du dénivelé.", price:"1 499 €"},
-      {name:"X Ultra S", badge:"Le plus performant", badgeClass:"badge-navy", profil:"Gros dénivelé & altitude", tag:"Le modèle le plus haut de gamme et le plus léger (titane + carbone), livré avec 2 batteries anti-froid pour tenir sur la durée, même en altitude.", price:"1 999 €"}
+      {name:"X Pro S", badge:"Le plus accessible", badgeClass:"badge-gold", profil:"Balade & quotidien", tag:"L'essentiel pour bien démarrer : il soulage vos balades, vos petites sorties et vos déplacements du quotidien.", price:"848,99 €", old:"998,99 €", save:"150 € de réduction"},
+      {name:"X Max S", badge:"Le plus polyvalent", badgeClass:"badge-blue", profil:"Rando dénivelé modéré", tag:"Le plus polyvalent : la puissance et le couple de l'Ultra S, pour randonner sur tous les terrains, même avec du dénivelé.", price:"1 198,99 €", old:"1 498,99 €", save:"300 € de réduction"},
+      {name:"X Ultra S", badge:"Le plus performant", badgeClass:"badge-navy", profil:"Gros dénivelé & altitude", tag:"Le modèle le plus haut de gamme et le plus léger (titane + carbone), livré avec 2 batteries anti-froid pour tenir sur la durée, même en altitude.", price:"1 698,99 €", old:"1 998,99 €", save:"300 € de réduction"}
     ],
     sections:[
       {title:"Performance", rows:[
@@ -153,11 +160,11 @@ const DATA={
   },
   en:{
     title:"Compare Hypershell walking exoskeletons",
-    yes:"Yes", no:"No",
+    yes:"Yes", no:"No", promo:"Promotion from 19/11 to 15/12/2026",
     models:[
-      {name:"X Pro S", badge:"Most affordable", badgeClass:"badge-gold", profil:"Walks & everyday", tag:"The essentials to get started: it eases your walks, short outings and everyday moves.", price:"€999"},
-      {name:"X Max S", badge:"Most versatile", badgeClass:"badge-blue", profil:"Moderate elevation hikes", tag:"The most versatile: the power and torque of the Ultra S, to hike any terrain, even with elevation gain.", price:"€1,499"},
-      {name:"X Ultra S", badge:"Most powerful", badgeClass:"badge-navy", profil:"Big climbs & altitude", tag:"The top-of-the-range and lightest model (titanium + carbon), supplied with 2 cold-resistant batteries to last all day, even at altitude.", price:"€1,999"}
+      {name:"X Pro S", badge:"Most affordable", badgeClass:"badge-gold", profil:"Walks & everyday", tag:"The essentials to get started: it eases your walks, short outings and everyday moves.", price:"€848.99", old:"€998.99", save:"Save €150"},
+      {name:"X Max S", badge:"Most versatile", badgeClass:"badge-blue", profil:"Moderate elevation hikes", tag:"The most versatile: the power and torque of the Ultra S, to hike any terrain, even with elevation gain.", price:"€1,198.99", old:"€1,498.99", save:"Save €300"},
+      {name:"X Ultra S", badge:"Most powerful", badgeClass:"badge-navy", profil:"Big climbs & altitude", tag:"The top-of-the-range and lightest model (titanium + carbon), supplied with 2 cold-resistant batteries to last all day, even at altitude.", price:"€1,698.99", old:"€1,998.99", save:"Save €300"}
     ],
     sections:[
       {title:"Performance", rows:[
@@ -195,6 +202,51 @@ const DATA={
       {name:"AeroFlex shoulder strap", desc:"Extra shoulder support for long outings.", price:"€69"},
       {name:"4-in-1 GaN 65 W charger", desc:"Compact fast charger, several devices at once.", price:"€59"}
     ]
+  },
+  de:{
+    title:"Hypershell Geh-Exoskelette vergleichen",
+    yes:"Ja", no:"Nein", promo:"Aktion vom 19.11. bis 15.12.2026",
+    models:[
+      {name:"X Pro S", badge:"Am günstigsten", badgeClass:"badge-gold", profil:"Spaziergänge & Alltag", tag:"Das Wesentliche für den Einstieg: Er entlastet Ihre Spaziergänge, kurze Ausflüge und alltägliche Wege.", price:"848,99 €", old:"998,99 €", save:"150 € Rabatt"},
+      {name:"X Max S", badge:"Am vielseitigsten", badgeClass:"badge-blue", profil:"Wanderungen mit mäßigem Höhenunterschied", tag:"Der vielseitigste: die Kraft und das Drehmoment des Ultra S, um auf jedem Gelände zu wandern, auch mit Höhenunterschied.", price:"1 198,99 €", old:"1 498,99 €", save:"300 € Rabatt"},
+      {name:"X Ultra S", badge:"Am leistungsstärksten", badgeClass:"badge-navy", profil:"Große Anstiege & Höhenlagen", tag:"Das hochwertigste und leichteste Modell (Titan + Carbon), geliefert mit 2 kältebeständigen Akkus für lange Ausdauer, auch in der Höhe.", price:"1 698,99 €", old:"1 998,99 €", save:"300 € Rabatt"}
+    ],
+    sections:[
+      {title:"Leistung", rows:[
+        {label:"Maximale Ausgangsleistung", v:["800 W","1000 W","1000 W"]},
+        {label:"Reduzierung der körperlichen Anstrengung", v:["30 %","39 %","39 %"]},
+        {label:"Maximales Motordrehmoment", v:["18 N·m","22 N·m","22 N·m"]},
+        {label:"Max. Unterstützungsgeschwindigkeit (Laufen)", v:["20 km/h","25 km/h","25 km/h"]}
+      ]},
+      {title:"Akku & Reichweite", rows:[
+        {label:"Akkus im Paket", v:["1","1","2 (kältebeständig)"]},
+        {label:"Kapazität (pro Akku)", v:["72 Wh / 5000 mAh","72 Wh / 5000 mAh","72 Wh / 5000 mAh (kältebeständig)"]},
+        {label:"Gehreichweite (komplettes Paket)", v:["17,5 km","30 km","60 km (kombiniert, 2 Akkus)"]}
+      ]},
+      {title:"Intelligenz & Modi", rows:[
+        {label:"AI MotionEngine", desc:"Das „Gehirn“ des Exoskeletts: Es liest Ihren Schritt und das Gelände in Echtzeit, um die Unterstützung selbstständig anzupassen.", v:["HyperIntuition™","HyperIntuition™","HyperIntuition™"]},
+        {label:"Intelligente Modi", v:["10 Modi","10 Modi","12 Modi"]},
+        {label:"Modi im Detail", mini:true, v:[M10_DE,M10_DE,M12_DE]},
+        {label:"Fitness-Modus", desc:"Statt zu unterstützen, erzeugen die Motoren Widerstand: Gehen wird zum Krafttraining. Dynamisch = Widerstand passend zu Ihrem Tempo; Isotonisch = Widerstand, der zunimmt, wenn Sie das Bein heben.", mini:true, v:["Dynamisch","Dynamisch","Dynamisch\nIsotonisch"]},
+        {label:"Hyper-Modus", desc:"Maximale Leistung, für intensive Anstrengungen (steile Anstiege, schwere Lasten).", v:["Ja","Ja","Ja"]},
+        {label:"Boost-Modus", desc:"Ein gelegentlicher Schub: zusätzliche Leistung auf Abruf, um eine schwierige Passage zu meistern.", v:["Nein","Nein","Ja"]}
+      ]},
+      {title:"Konstruktion", rows:[
+        {label:"Gesamtgewicht (mit Akku)", v:["2,6 kg","2,6 kg","2,5 kg"]},
+        {label:"Wasser- & Staubschutz", v:["IP54","IP54","IP54"]},
+        {label:"Betriebstemperatur", mini:true, v:["-10° bis 60° C","-10° bis 60° C","-20° bis 60° C"]},
+        {label:"Packmaß (gefaltet)", desc:"Passt in einen Tagesrucksack.", v:["6,5 L","6,5 L","6,5 L"]}
+      ]}
+    ],
+    reassure:["2 Jahre Garantie","Geld-zurück-Garantie","Test im Geschäft anfragen"],
+    accTitle:"Verfügbares Zubehör",
+    acc:[
+      {name:"Intelligenter Akku", desc:"Herausnehmbarer 72-Wh-Akku für mehr Reichweite.", price:"ab 119 €"},
+      {name:"AeroFlex-Set", desc:"Polster und Komfortgurte zur besseren Lastverteilung.", price:"ab 80 €"},
+      {name:"4-Port-Ladehub", desc:"Lädt bis zu 4 Akkus gleichzeitig.", price:"69 €"},
+      {name:"AeroFlex-Schultergurt", desc:"Zusätzliche Schulterunterstützung für lange Touren.", price:"69 €"},
+      {name:"4-in-1-GaN-Ladegerät 65 W", desc:"Kompaktes Schnellladegerät, mehrere Geräte gleichzeitig.", price:"59 €"}
+    ]
   }
 };
 
@@ -213,13 +265,14 @@ function render(){
   document.documentElement.lang=LANG;
   document.getElementById("btn-fr").classList.toggle("active",LANG==="fr");
   document.getElementById("btn-en").classList.toggle("active",LANG==="en");
+  document.getElementById("btn-de").classList.toggle("active",LANG==="de");
   document.getElementById("title").textContent=D.title;
 
   // heads
   let h=`<div class="head-cell corner"></div>`;
   D.models.forEach(m=>{
     const badge=`<div class="badge-row">${m.badge?`<span class="badge ${m.badgeClass}">${m.badge}</span>`:""}</div>`;
-    h+=`<div class="head-cell"><div class="head-name">${m.name}</div>${badge}<div class="profil">${m.profil}</div><div class="head-tag">${m.tag}</div><div class="head-price">${m.price}</div></div>`;
+    h+=`<div class="head-cell"><div class="head-name">${m.name}</div>${badge}<div class="profil">${m.profil}</div><div class="head-tag">${m.tag}</div><div class="head-price"><span class="old">${m.old}</span><span class="now">${m.price}</span><span class="save">${m.save}</span><span class="promodate">${D.promo}</span></div></div>`;
   });
   document.getElementById("heads").innerHTML=h;
 
